@@ -93,7 +93,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .tg-button {
@@ -102,7 +101,7 @@ main {
   display: flex;
   gap: 6px;
   background: #00b3f0;
-  padding: 14px 110px 14px 110px;
+  padding: 14px 110px;
 
   font-weight: 590;
   font-size: 17px;
@@ -491,6 +490,40 @@ main {
   padding: 0px 270px 36px 270px;
   min-height: 100dvh;
   color: #1c1c1e;
+  position: relative;
+}
+
+/* Toast — всплывающее уведомление о копировании (зелёная пилюля сверху) */
+.db-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #34c759;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+  padding: 10px 18px 10px 14px;
+  border-radius: 100px;
+  box-shadow: 0 8px 24px rgba(52, 199, 89, 0.35);
+  z-index: 300;
+  animation: toastIn 0.3s ease;
+  white-space: nowrap;
+}
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 /* Header */
@@ -1274,4 +1307,280 @@ main {
   display: flex;
   align-items: center;
   padding: 4px;
+}
+
+/* =============================================
+   MOBILE RESPONSIVE — Register, Email, Password
+   ============================================= */
+
+@media (max-width: 768px) {
+  /* --- Register Screen (mobile) --- */
+  /* Полноэкранный белый фон, контент по центру, кнопки внизу */
+  .register-container {
+    margin: 0;
+    padding: 60px 20px 40px;
+    min-height: 100vh;
+    justify-content: center;
+  }
+
+  .register-img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 24px;
+  }
+
+  .register-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .register-subtitle {
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  /* Кнопки на всю ширину */
+  .buttons {
+    width: 100%;
+  }
+
+  .tg-button,
+  .email-button,
+  .phone-button {
+    width: 100%;
+    padding: 14px 20px;
+    justify-content: center;
+  }
+
+  /* --- Email / Phone / Password Screens (mobile) --- */
+  /* Убираем огромные десктопные паддинги, делаем полноэкранный layout */
+  .es-root {
+    padding: 0;
+    min-height: 100vh;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .es-container {
+    max-width: 100%;
+    padding: 60px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Кнопка «Назад» — круглая иконка как на макете */
+  .es-back {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    background: #7474800d;
+    justify-content: center;
+    font-size: 0;
+    margin-bottom: 24px;
+  }
+
+  .es-back svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Заголовок и подзаголовок */
+  .es-title {
+    font-size: 22px;
+    line-height: 28px;
+    margin-bottom: 8px;
+  }
+
+  .es-subtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* Инпут — скруглённая pill-форма */
+  .es-input {
+    border-radius: 100px;
+    padding: 14px 48px 14px 20px;
+    font-size: 16px;
+  }
+
+  /* Ошибка */
+  .es-error {
+    font-size: 14px;
+    padding-left: 16px;
+  }
+
+  /* Кнопка «Продолжить» — прибита к низу экрана */
+  .es-submit {
+    margin-top: auto;
+    padding: 16px 20px;
+    width: 100%;
+    border-radius: 100px;
+    font-size: 17px;
+    text-align: center;
+  }
+
+  /* =====================================
+     HOME (Dashboard) — мобильная версия
+     ===================================== */
+
+  /* Корневой контейнер — убираем огромные боковые паддинги */
+  .db-root {
+    padding: 0 0 24px 0;
+  }
+
+  /* Шапка: логотип отцентрирован абсолютом, меню остаётся справа в потоке.
+     Inline position:relative на меню-обёртке мешает позиционировать её
+     абсолютом, поэтому центрируем сам логотип. */
+  .db-header {
+    padding: 16px 20px;
+    position: relative;
+    justify-content: flex-end;
+    min-height: 56px;
+  }
+
+  .db-logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 17px;
+  }
+
+  /* Блок баланса */
+  .db-balance {
+    padding: 20px 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .db-days {
+    font-size: 48px;
+  }
+
+  .db-days-unit {
+    font-size: 32px;
+  }
+
+  /* Секции — стандартные паддинги */
+  .db-section {
+    padding: 0 16px;
+  }
+
+  /* Реферальный блок — вертикальный layout (эмодзи сверху, текст по центру) */
+  .db-referral {
+    flex-direction: column-reverse;
+    padding: 24px 20px;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .db-referral-emoji {
+    font-size: 64px;
+    margin-bottom: 8px;
+  }
+
+  .db-referral-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .db-referral-desc {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  /* Кнопки реферала — растягиваем на всю ширину поровну */
+  .db-referral-actions {
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .db-ref-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 12px 16px;
+  }
+
+  /* Дропдаун меню — компактнее */
+  .db-dropdown {
+    min-width: 220px;
+  }
+
+  /* =====================================
+     Модалки — bottom-sheet на мобильном
+     ===================================== */
+
+  /* Оверлей: контент прижат к низу экрана */
+  .db-modal-overlay {
+    align-items: flex-end;
+  }
+
+  /* Общие свойства bottom-sheet для всех модалок */
+  .db-modal,
+  .tu-modal,
+  .ad-modal {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px calc(env(safe-area-inset-bottom, 16px) + 24px);
+    animation: slideUpSheet 0.25s ease;
+  }
+
+  /* Анимация выезжания снизу */
+  @keyframes slideUpSheet {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* Ключ устройства — компактнее */
+  .db-modal-key {
+    font-size: 15px;
+  }
+
+  /* TopUp Modal — сумма по центру, чипы в 3 колонки */
+  .tu-amount-display {
+    padding-right: 0;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .tu-amount-input {
+    font-size: 48px;
+    line-height: 1.1;
+    text-align: center;
+    max-width: none;
+  }
+
+  .tu-rub-sign {
+    font-size: 28px;
+  }
+
+  .tu-chip {
+    padding: 8px 0;
+    font-size: 15px;
+  }
+
+  /* AddDevice Modal — список устройств */
+  .ad-list-item {
+    font-size: 15px;
+    padding: 14px 16px;
+  }
+}
+
+/* Очень маленькие экраны (телефоны типа iPhone SE) */
+@media (max-width: 380px) {
+  .db-days {
+    font-size: 42px;
+  }
+  .db-days-unit {
+    font-size: 28px;
+  }
+  .db-referral-emoji {
+    font-size: 52px;
+  }
 }

@@ -169,12 +169,19 @@ export default function Home({
   const [keyCopied, setKeyCopied] = useState(false);
   const [topUpOpen, setTopUpOpen] = useState(false);
   const [addDeviceOpen, setAddDeviceOpen] = useState(false);
+  const [toast, setToast] = useState(null);
   const menuRef = useRef(null);
+
+  const showToast = (message) => {
+    setToast(message);
+    setTimeout(() => setToast(null), 2500);
+  };
 
   const handleCopy = () => {
     navigator.clipboard?.writeText("https://yourdomain.com/ref/abc123");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+    showToast("Пригласительная ссылка скопирована");
   };
 
   useEffect(() => {
@@ -195,6 +202,23 @@ export default function Home({
   return (
     <>
       <div className="db-root">
+        {/* Toast уведомление о копировании */}
+        {toast && (
+          <div className="db-toast">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <rect width="22" height="22" rx="11" fill="#fff" />
+              <path
+                d="M6.5 11.5L9.5 14.5L15.5 8"
+                stroke="#34c759"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span>{toast}</span>
+          </div>
+        )}
+
         {/* Header */}
         <div className="db-header">
           <div className="db-logo">
@@ -561,6 +585,7 @@ export default function Home({
                     navigator.clipboard?.writeText(selectedDevice.key);
                     setKeyCopied(true);
                     setTimeout(() => setKeyCopied(false), 2000);
+                    showToast("Ключ скопирован");
                   }}
                 >
                   <svg
