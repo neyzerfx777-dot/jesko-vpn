@@ -1182,6 +1182,57 @@ main {
   background: #e5e5ea;
 }
 
+.db-modal-more-wrap {
+  position: relative;
+}
+
+.db-more-popover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  padding: 6px;
+  min-width: 180px;
+  z-index: 10;
+  animation: slideUp 0.16s ease;
+}
+
+.db-more-popover::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 18px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  transform: translateY(-50%) rotate(45deg);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+.db-more-item {
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  background: transparent;
+  color: #ff3b30;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.db-more-item:hover,
+.db-more-item:active {
+  background: #ff3b3014;
+}
+
 .tu-modal {
   background: #fff;
   border-radius: 20px;

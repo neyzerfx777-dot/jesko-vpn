@@ -167,6 +167,7 @@ export default function Home({
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [keyCopied, setKeyCopied] = useState(false);
+  const [deviceMenuOpen, setDeviceMenuOpen] = useState(false);
   const [topUpOpen, setTopUpOpen] = useState(false);
   const [addDeviceOpen, setAddDeviceOpen] = useState(false);
   const [toast, setToast] = useState(null);
@@ -553,14 +554,20 @@ export default function Home({
         {selectedDevice && (
           <div
             className="db-modal-overlay"
-            onClick={() => setSelectedDevice(null)}
+            onClick={() => {
+              setSelectedDevice(null);
+              setDeviceMenuOpen(false);
+            }}
           >
             <div className="db-modal" onClick={(e) => e.stopPropagation()}>
               <div className="db-modal-header">
                 <span className="db-modal-title">Ваш ключ</span>
                 <button
                   className="db-modal-close"
-                  onClick={() => setSelectedDevice(null)}
+                  onClick={() => {
+                    setSelectedDevice(null);
+                    setDeviceMenuOpen(false);
+                  }}
                 >
                   <svg
                     width="16"
@@ -615,18 +622,58 @@ export default function Home({
                   </svg>
                   {keyCopied ? "Скопировано!" : "Скопировать"}
                 </button>
-                <button className="db-modal-more">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="#00b3f0"
+                <div className="db-modal-more-wrap">
+                  <button
+                    className="db-modal-more"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeviceMenuOpen((v) => !v);
+                    }}
                   >
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                  </svg>
-                </button>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="#00b3f0"
+                    >
+                      <circle cx="5" cy="12" r="2" />
+                      <circle cx="12" cy="12" r="2" />
+                      <circle cx="19" cy="12" r="2" />
+                    </svg>
+                  </button>
+                  {deviceMenuOpen && (
+                    <div
+                      className="db-more-popover"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button
+                        className="db-more-item"
+                        onClick={() => {
+                          showToast("Устройство удалено");
+                          setDeviceMenuOpen(false);
+                          setSelectedDevice(null);
+                        }}
+                      >
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#ff3b30"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                          <path d="M10 11v6M14 11v6" />
+                          <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                        </svg>
+                        Удалить
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
