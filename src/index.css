@@ -535,6 +535,10 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: transparent;
 }
 .db-logo {
   display: flex;
@@ -1502,7 +1506,10 @@ main {
      абсолютом, поэтому центрируем сам логотип. */
   .db-header {
     padding: 16px 20px;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: transparent;
     justify-content: flex-end;
     min-height: 56px;
   }
