@@ -172,7 +172,35 @@ export default function Home({
   const [topUpOpen, setTopUpOpen] = useState(false);
   const [addDeviceOpen, setAddDeviceOpen] = useState(false);
   const [toast, setToast] = useState(null);
+  const [fistUrls, setFistUrls] = useState(null);
   const menuRef = useRef(null);
+
+  // Предзагружаем обе webp-анимации кулаков и присваиваем src обоим <img>
+  // в одном React-коммите, чтобы браузер начал декодирование одновременно
+  // и встроенные анимации webp шли синхронно.
+  useEffect(() => {
+    let cancelled = false;
+    let createdUrls = [];
+    Promise.all([
+      fetch("/img/left.webp").then((r) => r.blob()),
+      fetch("/img/right.webp").then((r) => r.blob()),
+    ])
+      .then(([leftBlob, rightBlob]) => {
+        if (cancelled) return;
+        const left = URL.createObjectURL(leftBlob);
+        const right = URL.createObjectURL(rightBlob);
+        createdUrls = [left, right];
+        setFistUrls({ left, right });
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setFistUrls({ left: "/img/left.webp", right: "/img/right.webp" });
+      });
+    return () => {
+      cancelled = true;
+      createdUrls.forEach((u) => URL.revokeObjectURL(u));
+    };
+  }, []);
 
   const showToast = (message) => {
     setToast(message);
@@ -510,24 +538,28 @@ export default function Home({
               </div>
               {/* Место для стикера — замени src на свой */}
               <div className="db-referral-emoji">
-                <span className="fist">
-                  <img
-                    src="/img/left.webp"
-                    alt=""
-                    draggable="false"
-                    width={100}
-                    height={100}
-                  />
-                </span>
-                <span className="fist">
-                  <img
-                    src="/img/right.webp"
-                    alt=""
-                    draggable="false"
-                    width={100}
-                    height={100}
-                  />
-                </span>
+                {fistUrls && (
+                  <>
+                    <span className="fist">
+                      <img
+                        src={fistUrls.left}
+                        alt=""
+                        draggable="false"
+                        width={100}
+                        height={100}
+                      />
+                    </span>
+                    <span className="fist">
+                      <img
+                        src={fistUrls.right}
+                        alt=""
+                        draggable="false"
+                        width={100}
+                        height={100}
+                      />
+                    </span>
+                  </>
+                )}
               </div>
             </div>
           </div>

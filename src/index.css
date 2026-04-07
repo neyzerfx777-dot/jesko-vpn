@@ -818,7 +818,6 @@ main {
 }
 .db-referral-emoji .fist {
   display: inline-block;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.18));
 }
 .db-referral-emoji .fist img {
   width: 1em;
