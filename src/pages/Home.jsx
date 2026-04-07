@@ -222,12 +222,15 @@ export default function Home({
         {/* Header */}
         <div className="db-header">
           <div className="db-logo">
-            <img
-              src={"/img/ballon.svg"}
+            <video
+              src={"/img/spin.mp4"}
               width={32}
               height={32}
               style={{ borderRadius: 8 }}
-              alt="logo"
+              autoPlay
+              loop
+              muted
+              playsInline
             />
             {appName}
           </div>
@@ -504,7 +507,13 @@ export default function Home({
                 </div>
               </div>
               {/* Место для стикера — замени src на свой */}
-              <div className="db-referral-emoji">🤜🤛</div>
+              <div className="db-referral-emoji">
+                <span className="fist-stage">
+                  <span className="fist fist-left">🤜</span>
+                  <span className="fist fist-right">🤛</span>
+                  <span className="impact" aria-hidden="true"></span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
