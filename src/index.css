@@ -491,6 +491,9 @@ main {
   min-height: 100dvh;
   color: #1c1c1e;
   position: relative;
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Toast — всплывающее уведомление о копировании (зелёная пилюля сверху) */

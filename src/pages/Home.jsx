@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 import TopUpModal from "../Components/TopUpModal";
 import AddDeviceModal from "../Components/AddDeviceModal";
+import { Link } from "react-router-dom";
 
 // Заглушки для иконок платформ — замени на свои
 const AppleIcon = () => (
@@ -319,7 +320,8 @@ export default function Home({
                   </svg>
                 </button>
                 <div className="db-dropdown-divider" />
-                <button
+                <Link
+                  to={"/register"}
                   className="db-dropdown-item logout"
                   onClick={() => setMenuOpen(false)}
                 >
@@ -353,7 +355,7 @@ export default function Home({
                       strokeLinejoin="round"
                     />
                   </svg>
-                </button>
+                </Link>
               </div>
             )}
           </div>
