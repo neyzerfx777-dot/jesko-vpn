@@ -816,133 +816,17 @@ main {
   align-items: center;
   justify-content: center;
 }
-.db-referral-emoji .fist-stage {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  animation: stage-shake 1.8s ease-in-out infinite;
-  transform-origin: center;
-}
 .db-referral-emoji .fist {
   display: inline-block;
-  transform-origin: center;
-  will-change: transform;
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.18));
 }
-.db-referral-emoji .fist-left {
-  animation: fist-left 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
-}
-.db-referral-emoji .fist-right {
-  animation: fist-right 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
-}
-.db-referral-emoji .impact {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0.7em;
-  height: 0.7em;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 220, 120, 0.95) 0%,
-    rgba(255, 170, 60, 0.6) 40%,
-    rgba(255, 140, 30, 0) 70%
-  );
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
+.db-referral-emoji .fist img {
+  width: 1em;
+  height: 1em;
+  display: block;
   pointer-events: none;
-  will-change: transform, opacity;
-  animation: impact-flash 1.8s ease-out infinite;
-}
-@keyframes fist-left {
-  0% {
-    transform: translateX(-30%) rotate(-8deg) scale(1);
-  }
-  25% {
-    transform: translateX(-55%) rotate(-14deg) scale(1);
-  }
-  42% {
-    transform: translateX(-2%) rotate(-2deg) scale(1.04);
-  }
-  46% {
-    transform: translateX(2%) rotate(0deg) scale(1.08);
-  }
-  55% {
-    transform: translateX(-18%) rotate(-6deg) scale(1);
-  }
-  100% {
-    transform: translateX(-30%) rotate(-8deg) scale(1);
-  }
-}
-@keyframes fist-right {
-  0% {
-    transform: translateX(30%) rotate(8deg) scale(1);
-  }
-  25% {
-    transform: translateX(55%) rotate(14deg) scale(1);
-  }
-  42% {
-    transform: translateX(2%) rotate(2deg) scale(1.04);
-  }
-  46% {
-    transform: translateX(-2%) rotate(0deg) scale(1.08);
-  }
-  55% {
-    transform: translateX(18%) rotate(6deg) scale(1);
-  }
-  100% {
-    transform: translateX(30%) rotate(8deg) scale(1);
-  }
-}
-@keyframes stage-shake {
-  0%,
-  43%,
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  46% {
-    transform: translate(0, -2%) rotate(0deg);
-  }
-  47% {
-    transform: translate(-1.5%, 1%) rotate(-1deg);
-  }
-  49% {
-    transform: translate(1.5%, -1%) rotate(1deg);
-  }
-  51% {
-    transform: translate(-1%, 0) rotate(0deg);
-  }
-  54% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-}
-@keyframes impact-flash {
-  0%,
-  43% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-  }
-  46% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 1;
-  }
-  55% {
-    transform: translate(-50%, -50%) scale(2.2);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(2.2);
-    opacity: 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .db-referral-emoji .fist-left,
-  .db-referral-emoji .fist-right,
-  .db-referral-emoji .fist-stage,
-  .db-referral-emoji .impact {
-    animation: none;
-  }
+  user-select: none;
+  -webkit-user-drag: none;
 }
 .db-referral-actions {
   display: flex;

@@ -234,7 +234,6 @@ export default function Home({
               muted
               playsInline
             />
-            {appName}
           </div>
           <div style={{ position: "relative" }} ref={menuRef}>
             <button
@@ -511,10 +510,23 @@ export default function Home({
               </div>
               {/* Место для стикера — замени src на свой */}
               <div className="db-referral-emoji">
-                <span className="fist-stage">
-                  <span className="fist fist-left">🤜</span>
-                  <span className="fist fist-right">🤛</span>
-                  <span className="impact" aria-hidden="true"></span>
+                <span className="fist">
+                  <img
+                    src="/img/left.webp"
+                    alt=""
+                    draggable="false"
+                    width={100}
+                    height={100}
+                  />
+                </span>
+                <span className="fist">
+                  <img
+                    src="/img/right.webp"
+                    alt=""
+                    draggable="false"
+                    width={100}
+                    height={100}
+                  />
                 </span>
               </div>
             </div>
