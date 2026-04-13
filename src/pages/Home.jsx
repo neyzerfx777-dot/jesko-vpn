@@ -174,49 +174,31 @@ export default function Home({
   const [toast, setToast] = useState(null);
   const [fistUrls, setFistUrls] = useState(null);
   const menuRef = useRef(null);
-  const logoCanvasRef = useRef(null);
+  const logoRef = useRef(null);
 
-  // Анимация лого из image sequence (160 кадров)
+  // Анимация лого из image sequence (160 кадров, 30 FPS)
   useEffect(() => {
-    const canvas = logoCanvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
     const totalFrames = 160;
     const fps = 30;
     let currentFrame = 0;
-    let animId;
-    let lastTime = 0;
-    const interval = 1000 / fps;
 
-    const images = [];
-    let loadedCount = 0;
-
-    const onAllLoaded = () => {
-      const draw = (timestamp) => {
-        if (timestamp - lastTime >= interval) {
-          lastTime = timestamp;
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(images[currentFrame], 0, 0, canvas.width, canvas.height);
-          currentFrame = (currentFrame + 1) % totalFrames;
-        }
-        animId = requestAnimationFrame(draw);
-      };
-      animId = requestAnimationFrame(draw);
-    };
-
+    // Предзагрузка всех кадров
+    const srcs = [];
     for (let i = 1; i <= totalFrames; i++) {
+      const src = `/img/sequence/${String(i).padStart(4, "0")}.png`;
+      srcs.push(src);
       const img = new Image();
-      img.src = `/img/sequence/${String(i).padStart(4, "0")}.png`;
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === totalFrames) onAllLoaded();
-      };
-      images.push(img);
+      img.src = src;
     }
 
-    return () => {
-      if (animId) cancelAnimationFrame(animId);
-    };
+    const id = setInterval(() => {
+      if (logoRef.current) {
+        logoRef.current.src = srcs[currentFrame];
+        currentFrame = (currentFrame + 1) % totalFrames;
+      }
+    }, 1000 / fps);
+
+    return () => clearInterval(id);
   }, []);
 
   // Предзагружаем обе webp-анимации кулаков и присваиваем src обоим <img>
@@ -296,11 +278,13 @@ export default function Home({
         {/* Header */}
         <div className="db-header">
           <div className="db-logo">
-            <canvas
-              ref={logoCanvasRef}
-              width={100}
-              height={100}
-              style={{ width: 50, height: 50, borderRadius: 8 }}
+            <img
+              ref={logoRef}
+              src="/img/sequence/0001.png"
+              width={75}
+              height={75}
+              alt="logo"
+              style={{ borderRadius: 8 }}
             />
           </div>
           <div style={{ position: "relative" }} ref={menuRef}>
