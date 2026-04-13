@@ -281,8 +281,8 @@ export default function Home({
             <img
               ref={logoRef}
               src="/img/sequence/0001.png"
-              width={75}
-              height={75}
+              width={100}
+              height={100}
               alt="logo"
               style={{ borderRadius: 8 }}
             />
