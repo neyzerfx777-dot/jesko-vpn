@@ -181,24 +181,31 @@ export default function Home({
     const totalFrames = 160;
     const fps = 30;
     let currentFrame = 0;
+    let intervalId = null;
+    let loadedCount = 0;
 
-    // Предзагрузка всех кадров
-    const srcs = [];
+    const images = [];
     for (let i = 1; i <= totalFrames; i++) {
-      const src = `/img/sequence/${String(i).padStart(4, "0")}.png`;
-      srcs.push(src);
       const img = new Image();
-      img.src = src;
+      img.src = `/img/sequence/${String(i).padStart(4, "0")}.png`;
+      img.onload = () => {
+        loadedCount++;
+        // Запускаем анимацию только когда все кадры загружены
+        if (loadedCount === totalFrames && !intervalId) {
+          intervalId = setInterval(() => {
+            if (logoRef.current) {
+              logoRef.current.src = images[currentFrame].src;
+              currentFrame = (currentFrame + 1) % totalFrames;
+            }
+          }, 1000 / fps);
+        }
+      };
+      images.push(img);
     }
 
-    const id = setInterval(() => {
-      if (logoRef.current) {
-        logoRef.current.src = srcs[currentFrame];
-        currentFrame = (currentFrame + 1) % totalFrames;
-      }
-    }, 1000 / fps);
-
-    return () => clearInterval(id);
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, []);
 
   // Предзагружаем обе webp-анимации кулаков и присваиваем src обоим <img>
