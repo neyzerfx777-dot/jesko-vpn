@@ -253,9 +253,9 @@ export default function Home({
         <div className="db-header">
           <div className="db-logo">
             <video
-              src={"/img/spin.mp4"}
-              width={32}
-              height={32}
+              src={"/img/logo-360.webm"}
+              width={50}
+              height={50}
               style={{ borderRadius: 8 }}
               autoPlay
               loop

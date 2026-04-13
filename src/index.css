@@ -1184,12 +1184,16 @@ main {
   border: none;
   background: none;
   outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
   font-family: "SF Pro Rounded", sans-serif;
   font-size: 40px;
   font-weight: 600;
   letter-spacing: 0.36px;
   line-height: 110.1px;
   color: #000;
+  caret-color: #1c1c1e;
   width: auto;
   min-width: 60px;
   max-width: 200px;
@@ -1202,6 +1206,12 @@ main {
 }
 .tu-amount-input::placeholder {
   color: #c7c7cc;
+}
+.tu-amount-input::selection {
+  background: transparent;
+}
+.tu-amount-input::-moz-selection {
+  background: transparent;
 }
 .tu-rub-sign {
   font-size: 32px;
