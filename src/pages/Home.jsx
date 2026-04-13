@@ -174,6 +174,50 @@ export default function Home({
   const [toast, setToast] = useState(null);
   const [fistUrls, setFistUrls] = useState(null);
   const menuRef = useRef(null);
+  const logoCanvasRef = useRef(null);
+
+  // Анимация лого из image sequence (160 кадров)
+  useEffect(() => {
+    const canvas = logoCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const totalFrames = 160;
+    const fps = 30;
+    let currentFrame = 0;
+    let animId;
+    let lastTime = 0;
+    const interval = 1000 / fps;
+
+    const images = [];
+    let loadedCount = 0;
+
+    const onAllLoaded = () => {
+      const draw = (timestamp) => {
+        if (timestamp - lastTime >= interval) {
+          lastTime = timestamp;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(images[currentFrame], 0, 0, canvas.width, canvas.height);
+          currentFrame = (currentFrame + 1) % totalFrames;
+        }
+        animId = requestAnimationFrame(draw);
+      };
+      animId = requestAnimationFrame(draw);
+    };
+
+    for (let i = 1; i <= totalFrames; i++) {
+      const img = new Image();
+      img.src = `/img/sequence/${String(i).padStart(4, "0")}.png`;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === totalFrames) onAllLoaded();
+      };
+      images.push(img);
+    }
+
+    return () => {
+      if (animId) cancelAnimationFrame(animId);
+    };
+  }, []);
 
   // Предзагружаем обе webp-анимации кулаков и присваиваем src обоим <img>
   // в одном React-коммите, чтобы браузер начал декодирование одновременно
@@ -252,15 +296,11 @@ export default function Home({
         {/* Header */}
         <div className="db-header">
           <div className="db-logo">
-            <video
-              src={"/img/logo-360.webm"}
-              width={50}
-              height={50}
-              style={{ borderRadius: 8 }}
-              autoPlay
-              loop
-              muted
-              playsInline
+            <canvas
+              ref={logoCanvasRef}
+              width={100}
+              height={100}
+              style={{ width: 50, height: 50, borderRadius: 8 }}
             />
           </div>
           <div style={{ position: "relative" }} ref={menuRef}>
