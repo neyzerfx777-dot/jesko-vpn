@@ -288,11 +288,12 @@ export default function Home({
             <img
               ref={logoRef}
               src="/img/sequence/0001.png"
-              width={100}
-              height={100}
+              width={60}
+              height={60}
               alt="logo"
               style={{ borderRadius: 8 }}
             />
+            <span className="db-logo-text">Jesko VPN</span>
           </div>
           <div style={{ position: "relative" }} ref={menuRef}>
             <button
